@@ -1,0 +1,178 @@
+<head>
+    <title>Hornet Controls</title>
+    <meta charset="utf-8">
+    <link href="../base1/cockpit.css" type="text/css" rel="stylesheet">
+    <script src="../base1/jquery.js"></script>
+    <script src="../base1/cockpit.js"></script>
+    <div>
+    <script type="text/javascript">
+
+        function start_onclick() {
+	    $(".start_output").empty();
+	    $(".stop_output").empty();
+	    $(".clean_db_output").empty();
+	    $(".clean_snapshot_output").empty();
+            $(".start_output").append("Starting Hornet Systemd Service... ")
+
+	    var proc = cockpit.spawn("hornetctl", "--start", {superuser:"require"});
+	    proc.fail(start_onfail);
+	    proc.done($(".start_output").append("Successfully Started Hornet Systemd Service!"));
+        }
+
+        function start_onfail(data) {
+            $(".start_output").append("Could not start Hornet Systemd Service.");
+        }
+
+        function stop_onclick() {
+	    $(".stop_output").empty();
+	    $(".start_output").empty();
+	    $(".stop_output").append("Stopping Hornet Systemd Service... This might take a while, please be patient! ");
+
+            var proc = cockpit.spawn("hornetctl", "--stop", {superuser:"require"});
+	    proc.fail(stop_onfail);
+	    proc.done($(".stop_output").append("Successfully stopped Hornet Systemd Service."));
+        }
+
+        function stop_onfail(data) {
+            $(".stop_output").append("Could not stop Hornet Systemd Service.");
+        }
+
+        function mainnet_onclick() {
+	    $(".mainnet_output").empty();
+	    $(".comnet_output").empty();
+	    $(".start_output").empty();
+	    $(".mainnet_output").append("Setting Hornet to Mainnet... ")
+
+            var proc = cockpit.spawn("hornet_network", "-m", {superuser:"require"});
+	    proc.fail(mainnet_onfail);
+	    proc.done($(".mainnet_output").append("Successfully set Hornet to Mainnet."));
+        }
+
+        function mainnet_onfail(data) {
+            $(".mainnet_output").append("Could not set Hornet to Mainnet.");
+        }
+
+        function comnet_onclick() {
+	    $(".comnet_output").empty();
+	    $(".mainnet_output").empty();
+	    $(".start_output").empty();
+	    $(".comnet_output").append("Setting Hornet to Comnet... ");
+
+            var proc = cockpit.spawn("hornet_network", "-c", {superuser:"require"});
+	    proc.fail(comnet_onfail);
+	    proc.done($(".comnet_output").append("Successfully set Hornet to Comnet."));
+        }
+
+        function comnet_onfail(data) {
+            $(".comnet_output").append("Could not set to Comnet.");
+        }
+
+        function dashboard_enable_onclick() {
+	    $(".dashboard_enable_output").empty();
+	    $(".dashboard_disable_output").empty();
+	    $(".start_output").empty()
+	    $(".dashboard_enable_output").append("Enabling Dashboard... ");
+
+            var proc = cockpit.spawn("hornet_dashboard", "--on", {superuser:"require"});
+	    proc.done($(".dashboard_enable_output").append("Succesfully enabled Dashboard."));
+	    proc.fail(dashboard_enable_onfail);
+        }
+
+        function dashboard_enable_onfail(data) {
+            $(".dashboard_enable_output").append("Could not enable Dashboard.");
+        }
+
+        function dashboard_disable_onclick() {
+	    $(".dashboard_disable_output").empty();
+	    $(".dashboard_enable_output").empty();
+	    $(".start_output").empty();
+	    $(".dashboard_disable_output").append("Disabling Dashboard... ");
+
+            var proc = cockpit.spawn("hornet_dashboard", "--off", {superuser:"require"});
+	    proc.done($(".dashboard_disable_output").append("Succesfully disabled Dashboard."));
+	    proc.fail(dashboard_disable_onfail);
+        }
+
+        function dashboard_disable_onfail(data) {
+            $(".dashboard_disable_output").append("Could not disable Dashboard.");
+        }
+
+        function clean_db_onclick() {
+	    $(".clean_db_output").empty();
+	    $(".start_output").empty();
+
+            var proc = cockpit.spawn("hornet_clean_db", "-m", "-c", {superuser:"require"});
+	    proc.fail(clean_db_onfail);
+	    proc.done($(".clean_db_output").append("Cleaning Database... "));
+        }
+
+        function clean_db_onfail(data) {
+            $(".clean_db_output").append("Could not clean Database.");
+        }
+
+        function clean_snapshot_onclick() {
+	    $(".clean_snapshot_output").empty();
+	    $(".start_output").empty();
+
+            var proc = cockpit.spawn("hornet_clean_export", {superuser:"require"});
+	    proc.fail(clean_snapshot_onfail);
+	    proc.done($(".clean_snapshot_output").append("Cleaning Snapshot... "));
+        }
+
+        function clean_snapshot_onfail(data) {
+            $(".clean_snapshot_output").append("Could not clean Snapshot.");
+        }
+
+    </script>
+    </div>
+</head>
+<body>
+
+    <div style="horizontal-align:center">
+    <center><img src="HORNET_logo.png"></center>
+    </div>
+
+    <h2>Node</h2>
+    <div>
+    <button type="button" onClick="start_onclick()">Start</button>
+    <span class="start_output" />
+    </div>
+
+    <div>
+    <button type="button" onClick="stop_onclick()">Stop</button>
+    <span class="stop_output" />
+    </div>
+
+    <h2>Network</h2>
+    <div>
+    <button type="button" onClick="mainnet_onclick()">Mainnet</button>
+    <span class="mainnet_output" />
+    </div>
+
+    <div>
+    <button type="button" onClick="comnet_onclick()">Comnet</button>
+    <span class="comnet_output" />
+    </div>
+
+    <h2>Dashboard</h2>
+    <div>
+    <button type="button" onClick="dashboard_enable_onclick()">Enable</button>
+    <span class="dashboard_enable_output" />
+    </div>
+
+    <div>
+    <button type="button" onClick="dashboard_disable_onclick()">Disable</button>
+    <span class="dashboard_disable_output" />
+    </div>
+
+    <h2>Clean &#9888;</h2>
+    <div>
+    <button type="button" onClick="clean_db_onclick()">Database</button>
+    <span class="clean_db_output" />
+    </div>
+
+    <div>
+    <button type="button" onClick="clean_snapshot_onclick()">Snapshot</button>
+    <span class="clean_snapshot_output" />
+    </div>
+</body>

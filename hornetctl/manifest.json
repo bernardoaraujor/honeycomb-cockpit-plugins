@@ -1,0 +1,12 @@
+{
+"version": 0,
+
+    "tools": {
+        "update": {
+            "label": "Hornet",
+            "path": "hornetctl.html"
+        }
+    },
+
+    "content-security-policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval'"
+}
