@@ -1,0 +1,18 @@
+name: "hornetctl"
+arch: "all"
+platform: "linux"
+version: "v${HORNEYCOMB_COCKPIT_PLUGINS_VERSION}"
+depends:
+      - cockpit
+maintainer: "Bernardo A. Rodrigues <bernardo.araujo@iota.org>"
+description: Cockpit plugins specific to honeycombOS
+license: "MIT"
+bindir: "/usr/bin"
+files:
+      "about/about.html": "/usr/share/cockpit/about/about.html"
+      "about/HONEYCOMB_OS.png": "/usr/share/cockpit/about/HONEYCOMB_OS.png"
+      "about/iota.png": "/usr/share/cockpit/about/iota.png"
+      "about/manifest.json": "/usr/share/cockpit/about/manifest.json"
+      "hornetctl/hornetctl.html": "/usr/share/cockpit/hornetctl/hornetctl.html"
+      "hornetctl/HORNET_logo.png": "/usr/share/cockpit/hornetctl/HORNET_logo.png"
+      "hornetctl/manifest.json": "/usr/share/cockpit/hornetctl/manifest.json"
