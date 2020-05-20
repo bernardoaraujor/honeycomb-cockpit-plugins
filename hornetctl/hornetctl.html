@@ -8,9 +8,11 @@
     <script src="../base1/cockpit.js"></script>
     <script src="hornetctl.js"></script>
     <style type="text/css">
-        #hornetVersion {
-            display: block;
-            margin-top: 20px;
+        .statusContainer{
+            margin-top: 20px; 
+        }
+        .statusInfo {
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -20,8 +22,14 @@
             <div class="col-md-6">
                 <img src="HORNET_logo.png" width="350px">
             </div>
-            <div class="col-md-6 text-right">
-                <span id="hornetVersion"></span>
+            <div class="col-md-6">
+                <div class="statusContainer text-right">
+                    <div id="statusLoading">
+                        <div class="spinner spinner-md"></div>
+                    </div>              
+                    <div id="hornetVersion" class="statusInfo"></div>
+                    <div id="hornetNetwork" class="statusInfo"></div>
+                </div>
             </div>
         </div>
 

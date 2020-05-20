@@ -1,9 +1,18 @@
 var hornetCtl = {
     init: function () {
         // get hornet version
-        var proc = cockpit.spawn(["hornet", "--version"]);
+        $('#statusLoading').show();
+        var proc = cockpit.spawn(["hornet_status"]);
         proc.done((data) => {
-            $('#hornetVersion').text(data)
+            try{
+                var statusData = JSON.parse(data)
+                $('#hornetVersion').text(statusData.version)
+                $('#hornetNetwork').text(statusData.networkType)
+            } catch (e) {
+                console.log(e)
+            } finally {
+                // $('#statusLoading').hide()
+            }
         }).fail((err) => {
             console.log('error')
             console.log(err)
@@ -12,7 +21,7 @@ var hornetCtl = {
     start: function () {
         var proc = cockpit.spawn("hornetctl", "--start", {superuser:"require"});
         proc.fail((data) => {
-
+            
         });
     },
     stop: function () {
