@@ -6,7 +6,6 @@ var hornetCtl = {
         proc.done(function (data) {
             try{
                 var statusData = JSON.parse(data)
-                console.log(statusData)
                 $('#hornetVersion').text(statusData.version)
                 $('.hornetNetwork').text(statusData.networkType)
                 $('#nodeStatus').text(statusData.node.status)
@@ -18,20 +17,14 @@ var hornetCtl = {
                 $('#statusLoading').hide()
             }
         })
-        proc.fail(function (err) {
-            console.log(err)
-        })
+        proc.fail(hornetCtl.failHandler) 
     },
     start: function () {
         var proc = cockpit.spawn(['systemctl', 'start', 'hornet'], {superuser:"require"})
         proc.done(function (data) {
             hornetCtl.init()
         })
-        proc.fail(function (err) {
-            console.log(err)
-            $('#alertInfo').text('Something went wrong')
-            $('#alertModal').modal()
-        })
+        proc.fail(hornetCtl.failHandler) 
     },
     stop: function () {
         var check = confirm('Stop Hornet node');
@@ -41,11 +34,7 @@ var hornetCtl = {
                 console.log('here')
                 hornetCtl.init()
             })
-            proc.fail(function (err) {
-                console.log(err)
-                $('#alertInfo').text('Something went wrong')
-                $('#alertModal').modal()
-            })
+            proc.fail(hornetCtl.failHandler) 
         }
     },
     networkSelect: function (network) {
@@ -55,11 +44,7 @@ var hornetCtl = {
             proc.done(function () {
                 hornetCtl.init()
             })
-            proc.fail(function (err, data) {
-                console.log(err, data)
-                $('#alertInfo').text('Something went wrong')
-                $('#alertModal').modal()
-            })   
+            proc.fail(hornetCtl.failHandler)    
         }
     },
     enableDashboard: function () {
@@ -70,11 +55,7 @@ var hornetCtl = {
                 console.log('here')
                 hornetCtl.init()
             })
-            proc.fail(function (err) {
-                console.log(err)
-                $('#alertInfo').text('Something went wrong')
-                $('#alertModal').modal()
-            })   
+            proc.fail(hornetCtl.failHandler)    
         }
 
     },
@@ -86,11 +67,7 @@ var hornetCtl = {
                 console.log('here')
                 hornetCtl.init()
             })
-            proc.fail(function (err) {
-                console.log(err)
-                $('#alertInfo').text('Something went wrong')
-                $('#alertModal').modal()
-            })   
+            proc.fail(hornetCtl.failHandler)    
         }
 
     },
@@ -98,14 +75,10 @@ var hornetCtl = {
         var check = confirm('Clean database?');
         if(check) {
             var proc = cockpit.spawn(['hornet_clean_db', '-m', '-c'], {superuser:"require"});
-            proc.done(function (data) {
-                console.log(data)
+            proc.done(function () {
+                window.alert('Database clean successfull')
             })
-            proc.fail(function (err) {
-                console.log(err)
-                $('#alertInfo').text('Something went wrong')
-                $('#alertModal').modal()
-            })   
+            proc.fail(hornetCtl.failHandler) 
         }
 
     },
@@ -113,15 +86,14 @@ var hornetCtl = {
         var check = confirm('Snapshot Database?');
         if(check) {
             var proc = cockpit.spawn('hornet_clean_export', {superuser:"require"});
-            proc.done(function (data) {
-                console.log(data)
+            proc.done(function () {
+                window.alert('Snapshot successfull')
             })
-            proc.fail(function (err) {
-                console.log(err)
-                $('#alertInfo').text('Something went wrong')
-                $('#alertModal').modal()
-            })   
+            proc.fail(hornetCtl.failHandler)   
         }
-
+    },
+    failHandler: function (err, data) {
+        $('#alertInfo').text(err.message + "\n" + data)
+        $('#alertModal').modal()
     }
 }
