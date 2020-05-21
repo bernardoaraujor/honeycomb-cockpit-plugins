@@ -8,6 +8,9 @@
     <script src="../base1/cockpit.js"></script>
     <script src="hornetctl.js"></script>
     <style type="text/css">
+        #statusLoading { 
+            clear: both;
+        }
         .statusContainer{
             margin-top: 20px; 
         }
@@ -25,10 +28,10 @@
             <div class="col-md-6">
                 <div class="statusContainer text-right">
                     <div id="statusLoading">
-                        <div class="spinner spinner-md"></div>
+                        <div class="spinner spinner-md" style="float: right;"></div>
                     </div>              
                     <div id="hornetVersion" class="statusInfo"></div>
-                    <div id="hornetNetwork" class="statusInfo"></div>
+                    <div class="statusInfo hornetNetwork"></div>
                 </div>
             </div>
         </div>
@@ -38,31 +41,104 @@
             <div class="panel-body">
                  <div class="row">
                     <div class="col-md-6"> 
-                        <span>active</span>
-                        (running)
+                        <span id="nodeStatus"></span>
                         <br>
-                        Since 5/20/2020, 5:08:08 PM
+                        <span id="nodeSince"></span>
                     </div>
-                    <div class="col-md-6">   
-                        <div class="btn-group service-action-btn" id="service-unit-action">
-                            <button data-action="StopUnit" data-container="body" class="btn btn-default">Stop</button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <span class="caret"></span>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.start()">
+                                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                                Start
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="presentation">
-                                    <a data-action="StartUnit" role="menuitem">Start</a>
-                                </li>
-                                <li class="presentation">
-                                    <a data-action="StopUnit" role="menuitem">Stop</a>
-                                </li>
-                                <li class="presentation">
-                                    <a data-action="RestartUnit" role="menuitem">Restart</a>
-                                </li>
-                            </ul>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.stop()"> 
+                                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                                Stop
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Network</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+                        Active Network: <span class="hornetNetwork"></span>
+                        <br>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.networkSelect('mainnet')">
+                                Mainnet
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.networkSelect('comnet')"> 
+                                Comnet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Dashboard</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+                        <span id="hornetDashboardStatus"></span>
+                        <br>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.enableDashboard()">
+                                Enable
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.disableDashboard()"> 
+                                Disable
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Database &#9888;</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+
+                        <br>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.cleanDB()">
+                                Clean 
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.snapshot()"> 
+                                Snapshot
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <p id="alertInfo"></p>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
+</html>
