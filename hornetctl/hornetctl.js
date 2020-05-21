@@ -51,17 +51,12 @@ var hornetCtl = {
     networkSelect: function (network) {
         var check = confirm('Change Network to '+ network);
         if(check) {
-            let networkArg = "-m"
-            if(network === 'comnet') {
-                networkArg = "-c"
-            }
-            var proc = cockpit.spawn("hornet_network", networkArg, {superuser:"require"});
+            var proc = cockpit.spawn(['hornet_network', '--'+network], {superuser:"require"});
             proc.done(function () {
-                console.log('here')
                 hornetCtl.init()
             })
-            proc.fail(function (err) {
-                console.log(err)
+            proc.fail(function (err, data) {
+                console.log(err, data)
                 $('#alertInfo').text('Something went wrong')
                 $('#alertModal').modal()
             })   
@@ -70,7 +65,7 @@ var hornetCtl = {
     enableDashboard: function () {
         var check = confirm('Enable Dashboard?');
         if(check) {
-            var proc = cockpit.spawn("hornet_dashboard", "--on", {superuser:"require"});
+            var proc = cockpit.spawn(['hornet_dashboard', '--on'], {superuser:"require"});
             proc.done(function () {
                 console.log('here')
                 hornetCtl.init()
@@ -86,7 +81,7 @@ var hornetCtl = {
     disableDashboard: function () {
         var check = confirm('Disable Dashboard?');
         if(check) {
-            var proc = cockpit.spawn("hornet_dashboard", "--off", {superuser:"require"});
+            var proc = cockpit.spawn(['hornet_dashboard', '--off'], {superuser:"require"});
             proc.done(function () {
                 console.log('here')
                 hornetCtl.init()
@@ -102,9 +97,9 @@ var hornetCtl = {
     cleanDB: function () {
         var check = confirm('Clean database?');
         if(check) {
-            var proc = cockpit.spawn("hornet_clean_db", "-m", "-c", {superuser:"require"});
-            proc.done(function () {
-                console.log('here')
+            var proc = cockpit.spawn(['hornet_clean_db', '-m', '-c'], {superuser:"require"});
+            proc.done(function (data) {
+                console.log(data)
             })
             proc.fail(function (err) {
                 console.log(err)
@@ -117,9 +112,9 @@ var hornetCtl = {
     snapshot: function () {
         var check = confirm('Snapshot Database?');
         if(check) {
-            var proc = cockpit.spawn("hornet_clean_export", {superuser:"require"});
-            proc.done(function () {
-                console.log('here')
+            var proc = cockpit.spawn('hornet_clean_export', {superuser:"require"});
+            proc.done(function (data) {
+                console.log(data)
             })
             proc.fail(function (err) {
                 console.log(err)
