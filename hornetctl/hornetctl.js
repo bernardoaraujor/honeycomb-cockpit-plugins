@@ -83,11 +83,11 @@ var hornetCtl = {
 
     },
     snapshot: function () {
-        var check = confirm('Snapshot Database?');
+        var check = confirm('Clear Snapshot?');
         if(check) {
             var proc = cockpit.spawn('hornet_clean_export', {superuser:"require"});
             proc.done(function () {
-                window.alert('Snapshot successfull')
+                window.alert('Successfully cleaned Snapshot')
             })
             proc.fail(hornetCtl.failHandler)   
         }
