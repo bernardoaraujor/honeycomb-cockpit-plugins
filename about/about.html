@@ -4,20 +4,31 @@
     <link href="../base1/cockpit.css" type="text/css" rel="stylesheet">
     <script src="../base1/jquery.js"></script>
     <script src="../base1/cockpit.js"></script>
+    <style type="text/css">
+      .logoContainer{
+        margin: 30px 0;
+        text-align: center;
+      }
+      .logoContainer img {
+        max-width: 100%;
+      }
+      p {
+        padding: 20px;
+        font-size: 14px;
+        font-family:'Courier New';
+      }
+    </style>  
 </head>
-<body onload="about()">
-
-    <pre id="output" style="border:none;background:white;"></pre>
-    <div style="horizontal-align:center">
-       <center><img src="HONEYCOMB_OS.png"></center>
-       <br>
-       <center><img src="iota.png"></center>
-       <br>
+<body>
+    <div class="container-fluid">
+        <div class="logoContainer">
+           <img src="HONEYCOMB_OS.png" />
+           <br />
+           <img src="iota.png" />
+        </div>
+        <p>
+      	   HONEYCOMB OS is an Embedded Linux Distribution tailored for <a href="https://iota.org">IOTA</a> nodes, clients and Tangle related tools. It is mainly based on <a href="https://www.yoctoproject.org/software-item/poky/">Poky</a>, and it is built with tools from <a href="https://www.yoctoproject.org/">Yocto Project</a> and <a href="http://www.openembedded.org/wiki/Main_Page">OpenEmbedded</a>.
+        </p> 
     </div>
-
-    <div style="font-family:'Courier New';margin: 20px;">
-	HONEYCOMB OS is an Embedded Linux Distribution tailored for <a href="https://iota.org">IOTA</a> nodes, clients and Tangle related tools. It is mainly based on <a href="https://www.yoctoproject.org/software-item/poky/">Poky</a>, and it is built with tools from <a href="https://www.yoctoproject.org/">Yocto Project</a> and <a href="http://www.openembedded.org/wiki/Main_Page">OpenEmbedded</a>.
-    </div>
-
 </body>
 </html>
