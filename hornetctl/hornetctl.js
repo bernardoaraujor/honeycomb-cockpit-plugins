@@ -27,7 +27,7 @@ var hornetCtl = {
         proc.fail(hornetCtl.failHandler) 
     },
     stop: function () {
-        var check = confirm('Stop Hornet node');
+        var check = confirm('Stop Hornet node. Be patient and wait for Graceful Shutdown.');
         if(check) {
             var proc = cockpit.spawn(['systemctl', 'stop', 'hornet'], {superuser:"require"});
             proc.done(function () {
@@ -74,7 +74,7 @@ var hornetCtl = {
     cleanDB: function () {
         var check = confirm('Clean database?');
         if(check) {
-            var proc = cockpit.spawn(['hornet_clean_db', '-m', '-c'], {superuser:"require"});
+            var proc = cockpit.spawn(['hornet_clean_db'], {superuser:"require"});
             proc.done(function () {
                 window.alert('Database clean successfull')
             })
