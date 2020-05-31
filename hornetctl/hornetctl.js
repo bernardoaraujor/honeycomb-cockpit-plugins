@@ -11,6 +11,8 @@ var hornetCtl = {
                 $('#nodeStatus').text(statusData.node.status)
                 $('#nodeSince').text(statusData.node.since)
                 $('#hornetDashboardStatus').text(statusData.dashboardStatus)
+                $('#dashboardLaunchBtn').data('port', statusData.dashboardPort)
+                $('#dashboardLaunchBtn').data('status', statusData.dashboardStatus)
             } catch (e) {
                 console.log(e)
             } finally {
@@ -31,7 +33,16 @@ var hornetCtl = {
         if(check) {
             var proc = cockpit.spawn(['systemctl', 'stop', 'hornet'], {superuser:"require"});
             proc.done(function () {
-                console.log('here')
+                hornetCtl.init()
+            })
+            proc.fail(hornetCtl.failHandler) 
+        }
+    },
+    restart: function () {
+        var check = confirm('Restart Hornet node');
+        if(check) {
+            var proc = cockpit.spawn(['systemctl', 'restart', 'hornet'], {superuser:"require"});
+            proc.done(function () {
                 hornetCtl.init()
             })
             proc.fail(hornetCtl.failHandler) 
@@ -71,6 +82,18 @@ var hornetCtl = {
         }
 
     },
+    launchDashboard: function () {
+        var dashboardEnabled = $('#dashboardLaunchBtn').data('status')
+        var dashboardPort = $('#dashboardLaunchBtn').data('port')
+        if(dashboardEnabled) {
+            var url = window.location.protocol+'//'+window.location.hostname+':'+dashboardPort
+            console.log(url)
+            window.open(url)
+        } else {
+            alert('Dashboard not enabled')
+        }
+
+    },
     cleanDB: function () {
         var check = confirm('Clean database?');
         if(check) {
@@ -93,6 +116,7 @@ var hornetCtl = {
         }
     },
     failHandler: function (err, data) {
+        console.log(err, data)
         $('#alertInfo').text(err.message + "\n" + data)
         $('#alertModal').modal()
     }
