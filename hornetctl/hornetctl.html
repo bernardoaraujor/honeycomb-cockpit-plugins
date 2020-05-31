@@ -55,6 +55,10 @@
                                 <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
                                 Stop
                             </button>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.restart()"> 
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                Restart
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -64,7 +68,7 @@
          <div class="panel panel-default">
             <div class="panel-heading">Hornet Logs</div>
             <div class="panel-body">
-                <iframe src="/cockpit+app/@localhost/system/logs.html#?prio=*&service=hornet.service"
+                <iframe src="../../@localhost/system/logs.html#?prio=*&service=hornet.service"
                 width="100%" height="400" frameBorder="0"></iframe>
             </div>
         </div>
@@ -107,6 +111,9 @@
                             </button>
                             <button type="button" class="btn btn-default" onclick="hornetCtl.disableDashboard()"> 
                                 Disable
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.launchDashboard()" id="dashboardLaunchBtn"> 
+                                Launch
                             </button>
                         </div>
                     </div>
