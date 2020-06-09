@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GoShimmer Controls</title>
+    <meta charset="utf-8">
+    <link href="../base1/cockpit.css" type="text/css" rel="stylesheet">
+    <script src="../base1/jquery.js"></script>
+    <script src="../base1/cockpit.js"></script>
+    <script src="goshimmerctl.js"></script>
+    <style type="text/css">
+        #statusLoading { 
+            clear: both;
+        }
+        .statusContainer{
+            margin-top: 20px; 
+        }
+        .statusInfo {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body onLoad="goshimmerCtl.init()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="GoShimmer.png" width="350px">
+            </div>
+            <div class="col-md-6">
+                <div class="statusContainer text-right">
+                    <div id="statusLoading">
+                        <div class="spinner spinner-md" style="float: right;"></div>
+                    </div>              
+                    <div id="goshimmerVersion" class="statusInfo"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Node</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+                        <span id="nodeStatus"></span>
+                        <br>
+                        <span id="nodeSince"></span>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.start()">
+                                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                                Start
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.stop()"> 
+                                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                                Stop
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.restart()"> 
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                Restart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="panel panel-default">
+            <div class="panel-heading">GoShimmer Logs</div>
+            <div class="panel-body">
+                <iframe src="../../@localhost/system/logs.html#?prio=*&service=goshimmer.service"
+                width="100%" height="400" frameBorder="0"></iframe>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Dashboard</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+                        <span id="goshimmerDashboardStatus"></span>
+                        <br>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.enableDashboard()">
+                                Enable
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.disableDashboard()"> 
+                                Disable
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.launchDashboard()" id="dashboardLaunchBtn"> 
+                                Launch
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Clean &#9888;</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+
+                        <br>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="goshimmerCtl.cleanDB()">
+                                Database 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <p id="alertInfo"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

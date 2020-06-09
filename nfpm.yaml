@@ -1,4 +1,4 @@
-name: "hornetctl"
+name: "honeycomb-cockpit-plugins"
 arch: "all"
 platform: "linux"
 version: "v${HORNEYCOMB_COCKPIT_PLUGINS_VERSION}"
@@ -17,3 +17,8 @@ files:
       "hornetctl/hornetctl.js": "/usr/share/cockpit/hornetctl/hornetctl.js"
       "hornetctl/HORNET_logo.png": "/usr/share/cockpit/hornetctl/HORNET_logo.png"
       "hornetctl/manifest.json": "/usr/share/cockpit/hornetctl/manifest.json"
+      "goshimmerctl/GoShimmer.png": "/usr/share/cockpit/goshimmerctl/GoShimmer.png"
+      "goshimmerctl/goshimmerctl.html": "/usr/share/cockpit/goshimmerctl/goshimmerctl.html"
+      "goshimmerctl/goshimmerctl.js": "/usr/share/cockpit/goshimmerctl/goshimmerctl.js"
+      "goshimmerctl/manifest.json": "/usr/share/cockpit/goshimmerctl/manifest.json"
+
