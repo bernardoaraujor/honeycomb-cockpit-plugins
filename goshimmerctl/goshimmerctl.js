@@ -9,6 +9,7 @@ var goshimmerCtl = {
                 $('#goshimmerVersion').text(statusData.version)
                 $('#nodeStatus').text(statusData.node.status)
                 $('#nodeSince').text(statusData.node.since)
+		$('#goshimmerUSBStatus').text(statusData.local)
                 $('#goshimmerDashboardStatus').text(statusData.dashboardStatus)
                 $('#dashboardLaunchBtn').data('port', statusData.dashboardPort)
                 $('#dashboardLaunchBtn').data('status', statusData.dashboardStatus)
@@ -46,6 +47,30 @@ var goshimmerCtl = {
             })
             proc.fail(goshimmerCtl.failHandler) 
         }
+    },
+    enableUSB: function () {
+        var check = confirm('Enable USB Volume?');
+        if(check) {
+            var proc = cockpit.spawn(['goshimmerctl', 'usb', 'on'], {superuser:"require"});
+            proc.done(function () {
+                console.log('here')
+                goshimmerCtl.init()
+            })
+            proc.fail(goshimmerCtl.failHandler)    
+        }
+
+    },
+    disableUSB: function () {
+        var check = confirm('Disable USB Volume?');
+        if(check) {
+            var proc = cockpit.spawn(['goshimmerctl', 'usb', 'off'], {superuser:"require"});
+            proc.done(function () {
+                console.log('here')
+                goshimmerCtl.init()
+            })
+            proc.fail(goshimmerCtl.failHandler)    
+        }
+
     },
     enableDashboard: function () {
         var check = confirm('Enable Dashboard?');
@@ -100,3 +125,4 @@ var goshimmerCtl = {
         $('#alertModal').modal()
     }
 }
+

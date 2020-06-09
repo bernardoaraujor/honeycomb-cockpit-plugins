@@ -1,7 +1,7 @@
 DEST ?=
 DATADIR ?= /usr/share/cockpit/
 
-PLUGINS := about hornetctl
+PLUGINS := about hornetctl goshimmerctl
 
 ifeq ($(V),1)
   Q =

@@ -10,6 +10,7 @@ var hornetCtl = {
                 $('.hornetNetwork').text(statusData.networkType)
                 $('#nodeStatus').text(statusData.node.status)
                 $('#nodeSince').text(statusData.node.since)
+		$('#hornetUSBStatus').text(statusData.local)
                 $('#hornetDashboardStatus').text(statusData.dashboardStatus)
                 $('#dashboardLaunchBtn').data('port', statusData.dashboardPort)
                 $('#dashboardLaunchBtn').data('status', statusData.dashboardStatus)
@@ -53,6 +54,28 @@ var hornetCtl = {
         if(check) {
             var proc = cockpit.spawn(['hornetctl', 'network', network], {superuser:"require"});
             proc.done(function () {
+                hornetCtl.init()
+            })
+            proc.fail(hornetCtl.failHandler)    
+        }
+    },
+    enableUSB: function () {
+        var check = confirm('Enable USB Volume?');
+        if(check) {
+            var proc = cockpit.spawn(['hornetctl', 'usb', 'on'], {superuser:"require"});
+            proc.done(function () {
+                console.log('here')
+                hornetCtl.init()
+            })
+            proc.fail(hornetCtl.failHandler)    
+        }
+    },
+    disableUSB: function () {
+        var check = confirm('Disable USB Volume?');
+        if(check) {
+            var proc = cockpit.spawn(['hornetctl', 'usb', 'off'], {superuser:"require"});
+            proc.done(function () {
+                console.log('here')
                 hornetCtl.init()
             })
             proc.fail(hornetCtl.failHandler)    
@@ -121,3 +144,4 @@ var hornetCtl = {
         $('#alertModal').modal()
     }
 }
+

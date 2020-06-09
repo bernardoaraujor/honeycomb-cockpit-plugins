@@ -97,6 +97,29 @@
         </div>
 
         <div class="panel panel-default">
+            <div class="panel-heading">Local (SD Card or USB Volume)</div>
+            <div class="panel-body">
+                 <div class="row">
+                    <div class="col-md-6"> 
+                        <span id="hornetUSBStatus"></span>
+                        <br>
+                    </div>
+                    <div class="col-md-6 text-right">   
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.enableUSB()">
+                                USB Volume
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="hornetCtl.disableUSB()"> 
+                                SD Card
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
             <div class="panel-heading">Dashboard</div>
             <div class="panel-body">
                  <div class="row">
@@ -158,3 +181,4 @@
     </div>
 </body>
 </html>
+
