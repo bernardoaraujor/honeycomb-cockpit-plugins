@@ -14,5 +14,6 @@ files:
       "about/iota.png": "/usr/share/cockpit/about/iota.png"
       "about/manifest.json": "/usr/share/cockpit/about/manifest.json"
       "hornetctl/hornetctl.html": "/usr/share/cockpit/hornetctl/hornetctl.html"
+      "hornetctl/hornetctl.js": "/usr/share/cockpit/hornetctl/hornetctl.js"
       "hornetctl/HORNET_logo.png": "/usr/share/cockpit/hornetctl/HORNET_logo.png"
       "hornetctl/manifest.json": "/usr/share/cockpit/hornetctl/manifest.json"
